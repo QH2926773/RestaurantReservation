@@ -25,7 +25,7 @@ function asDateString(date) {
  * @returns {*}
  *  the specified date string formatted as YYYY-MM-DD
  */
-export function formatAsDate(dateString) {
+function formatAsDate(dateString) {
   return dateString.match(dateFormat)[0];
 }
 
@@ -36,7 +36,7 @@ export function formatAsDate(dateString) {
  * @returns {*}
  *  the specified time string formatted as YHH:MM.
  */
-export function formatAsTime(timeString) {
+function formatAsTime(timeString) {
   return timeString.match(timeFormat)[0];
 }
 
@@ -45,7 +45,7 @@ export function formatAsTime(timeString) {
  * @returns {*}
  *  the today's date formatted as YYYY-MM-DD
  */
-export function today() {
+function today() {
   return asDateString(new Date());
 }
 
@@ -56,7 +56,7 @@ export function today() {
  * @returns {*}
  *  the date one day prior to currentDate, formatted as YYYY-MM-DD
  */
-export function previous(currentDate) {
+function previous(currentDate) {
   let [ year, month, day ] = currentDate.split("-");
   month -= 1;
   const date = new Date(year, month, day);
@@ -72,7 +72,7 @@ export function previous(currentDate) {
  * @returns {*}
  *  the date one day after currentDate, formatted as YYYY-MM-DD
  */
-export function next(currentDate) {
+function next(currentDate) {
   let [ year, month, day ] = currentDate.split("-");
   month -= 1;
   const date = new Date(year, month, day);
@@ -80,19 +80,27 @@ export function next(currentDate) {
   date.setDate(date.getDate() + 1);
   return asDateString(date);
 }
-export function notTuesday(reservation_date, errors) {
-  const [year, month, day] = reservation_date.split("-");
-  const date = new Date(`${month} ${day}, ${year}`);
-  if (date.getDay() === 2) {
-    errors.push(<li key="tuesday">Restaurant is closed on Tuesdays</li>);
-  }
-}
+// export function notTuesday(reservation_date, errors) {
+//   const [year, month, day] = reservation_date.split("-");
+//   const date = new Date(`${month} ${day}, ${year}`);
+//   if (date.getDay() === 2) {
+//     errors.push(<li key="tuesday">Restaurant is closed on Tuesdays</li>);
+//   }
+// }
 
-export function futureEvent(reservation_date, errors) {
-  const [year, month, day] = reservation_date.split("-");
-  const date = new Date(`${month} ${day}, ${year}`);
-  const today = new Date();
-  if (date < today) {
-    errors.push(<li key="past">Reservation must be in the future</li>);
-  }
+// export function futureEvent(reservation_date, errors) {
+//   const [year, month, day] = reservation_date.split("-");
+//   const date = new Date(`${month} ${day}, ${year}`);
+//   const today = new Date();
+//   if (date < today) {
+//     errors.push(<li key="past">Reservation must be in the future</li>);
+//   }
+// }
+module.exports = {
+  asDateString,
+  formatAsDate,
+  formatAsTime,
+  today,
+  previous,
+  next,
 }
