@@ -1,14 +1,14 @@
 import React from "react";
 
-import { Redirect, Route, Switch } from "react-router-dom";
-import Dashboard from "../dashboard/Dashboard";
+import { Redirect, Route, Switch, useLocation } from "react-router-dom";
+import Dashboard from "./Dashboard";
 import NotFound from "./NotFound";
 import { today } from "../utils/date-time";
-import ReservationCreate from "../reservations/ReservationCreate";
-import CreateTable from "../tables/CreateTable";
-import ReservationSeat from "../reservations/ReservationSeat";
-import ReservationSearch from "./ReservationSearch";
-import ReservationEdit from "../reservations/ReservationEdit";
+import NewReservation from "./reservations/NewReservation";
+import NewTable from "./reservationTables/NewTable";
+import SeatParty from "./reservationTables/SeatParty";
+import Search from "./Search";
+import EditReservation from "./reservations/EditReservation";
 
 /**
  * Defines all the routes for the application.
@@ -17,7 +17,13 @@ import ReservationEdit from "../reservations/ReservationEdit";
  *
  * @returns {JSX.Element}
  */
- function Routes() {
+function Routes() {
+  const { search } = useLocation();
+  const searchParams = new URLSearchParams(search);
+  let date = searchParams.get("date");
+  if (!date) {
+    date = today();
+  }
   return (
     <Switch>
       <Route exact={true} path="/">
@@ -26,23 +32,23 @@ import ReservationEdit from "../reservations/ReservationEdit";
       <Route exact={true} path="/reservations">
         <Redirect to={"/dashboard"} />
       </Route>
-      <Route path="/dashboard">
-        <Dashboard date={today()} />
+      <Route exact={true} path="/dashboard">
+        <Dashboard date={date} />
       </Route>
       <Route exact={true} path="/reservations/new">
-        <ReservationCreate />
-      </Route>
-      <Route exact={true} path="/reservations/:reservation_id/seat">
-        <ReservationSeat />
-      </Route>
-      <Route exact={true} path="/reservations/:reservation_id/edit">
-        <ReservationEdit />
+        <NewReservation />
       </Route>
       <Route exact={true} path="/tables/new">
-        <CreateTable />
+        <NewTable />
+      </Route>
+      <Route exact={true} path="/reservations/:reservation_id/seat">
+        <SeatParty />
+      </Route>
+      <Route exact={true} path="/reservations/:reservation_id/edit">
+        <EditReservation />
       </Route>
       <Route exact={true} path="/search">
-        <ReservationSearch />
+        <Search />
       </Route>
       <Route>
         <NotFound />

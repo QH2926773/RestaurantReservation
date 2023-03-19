@@ -1,0 +1,76 @@
+.bottom-button {
+    background-color:#ffe5b4;
+  }
+  
+  .bottom-button-cancel {
+    background-color:red;
+  }
+  
+  .tables-reservation-form-buttons {
+    margin-top:20px;
+  }
+  
+  .tables-cards {
+    margin:20px;
+  }
+  
+  .bottom-tables {
+    margin-bottom:50px;
+  }
+  
+  .table-titles {
+    display:flex;
+    flex-direction:column;
+  }
+  @media (min-width: 768px) {
+  
+    .seat-form {
+      display:flex;
+      justify-content:center;
+    }
+  
+    .tables-form {
+      margin:20px;
+    }
+  
+    .tables-reservation-form-buttons {
+  
+      display:flex;
+      justify-content:space-between;
+      margin-top:20px;
+    }
+  
+    .bottom-tables {
+      display:flex;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+  
+    .bottom-button {
+      margin:10px;
+    }
+  
+    .bottom-button-cancel {
+      margin:10px;
+    }
+  
+    .table-cancel {
+      display:flex;
+      flex-direction: column;
+    }
+  
+    .table-cancel > button {
+      align-self:center;
+    }
+  
+    .seat-form > select {
+      align-self:center;
+      width:auto;
+    }
+  
+    .seat-buttons {
+      display:flex;
+    }
+  
+  }
+  

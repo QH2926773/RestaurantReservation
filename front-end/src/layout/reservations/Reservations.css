@@ -1,0 +1,49 @@
+.reservation-form {
+  margin:20px
+}
+
+.bottom-button {
+  margin-bottom: 10px;
+  background-color:#ffe5b4;
+  width:100%;
+}
+
+.bottom-button-cancel {
+width:100%;
+}
+
+.desk-card {
+  width:100%;
+}
+
+
+@media (min-width: 780px) {
+
+  .new-reservation {
+    margin:20px;
+  }
+
+  .reservation-form-btn {
+    display:flex;
+    justify-content:center;
+    flex-direction:column;
+  }
+
+
+  .reservation-form-btn > .bottom-button, .bottom-button-cancel {
+    align-self:center;
+  }
+
+  .desk-card {
+    width:auto;
+    margin:4px;
+  }
+
+  .list-reservation {
+    background:#A2ABAB;
+    display:flex;
+    justify-content:center;
+    flex-wrap: wrap;
+  }
+}
+

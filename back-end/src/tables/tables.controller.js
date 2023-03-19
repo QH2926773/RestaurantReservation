@@ -75,7 +75,6 @@ function hasValidCapacity(req, res, next) {
  */
 async function create(req, res, next){
   const data = await service.create(req.body.data);
-  console.log("data:", data);
   res.status(201).json({ data: data });
 }
 
