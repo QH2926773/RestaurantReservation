@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router";
-import { listTables, updateSeat } from "../../utils/api";
-import ErrorAlert from "../ErrorAlert";
+import { listTables, seatTable } from "../utils/api";
+import ErrorAlert from "../layout/ErrorAlert";
 
 function ReservationSeat() {
   const history = useHistory();
@@ -27,7 +27,7 @@ function ReservationSeat() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const tableObj = JSON.parse(tableFormData);
-    updateSeat(tableObj.table_id, reservation_id)
+    seatTable(tableObj.table_id, reservation_id)
     .then((response) => {
       const newTables = tables.map((table) => {
         return table.table_id === response.table_id ? response : table

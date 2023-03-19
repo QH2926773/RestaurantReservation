@@ -25,7 +25,7 @@ function read(req, res) {
 async function list(req, res) {
   const {date}=req.query;
   const {mobile_number}=req.query;
-  console.log(date,mobile_number,123)
+
   if(date){
     const data=await service.list(date)
     res.json({data})
@@ -106,7 +106,7 @@ function dateIsValid(req, res, next) {
 
 function hasValidTime(req, res, next) {
   const { reservation_time } = req.body.data;
-  const timeRegex = new RegExp(/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/);
+  const timeRegex = new RegExp(/^(0\d|1\d|2\d):[0-5]\d$/);
   if (reservation_time && reservation_time !== "" && reservation_time.match(timeRegex)) {
     next();
   } else {
@@ -175,30 +175,6 @@ function restaurantIsOpen(req, res, next) {
   });
 }
 
-// function hasOnlyStatusProperty(req, res, next) {
-//   const { data = {} } = req.body;
-//   const invalidFields = Object.keys(data).filter(
-//     (field) => !["status"].includes(field)
-//   );
-//   if (invalidFields.length) {
-//     return next({
-//       status: 400,
-//       message: `Invalid field(s): ${invalidFields.join(", ")}`,
-//     });
-//   }
-//   next();
-// }
-
-// function hasStatusProperty(req, res, next) {
-//   const { data = {} } = req.body;
-//   if (data.status) {
-//     return next();
-//   }
-//   next({
-//     status: 400,
-//     message: `status is a required field`,
-//   });
-// }
 
 function statusIsValid(req, res, next) {
   const { status } = req.body.data;
@@ -213,16 +189,7 @@ function statusIsValid(req, res, next) {
   next();
 }}
 
-// function statusIsBooked(req, res, next) {
-//   const { status } = req.body.data;
-//   if (!status === "booked" ) {
-//     return next({
-//       status: 400,
-//       message: `"${status}" is not a valid status. New Reservations must have a status of "booked"`,
-//     });
-//   }
-//    next();
-//   }
+
   
   function hasDefaultBookedStatus(req, res, next) {
     const { status } = req.body.data;
@@ -233,16 +200,6 @@ function statusIsValid(req, res, next) {
     }
   }
 
-// function currentStatusIsNotSeated(req, res, next) {
-//   const { status } = req.body.data;
-//   if (status === "seated") {
-//     return next({
-//       status: 400,
-//       message: `Reservations that are seated cannot be updated.`,
-//     });
-//   }
-//   next();
-// }
 
 function currentStatusIsNotFinished(req, res, next) {
   const currentStatus=res.locals.reservation.status;
@@ -279,7 +236,7 @@ module.exports = {
     hasDefaultBookedStatus,
     asyncErrorBoundary(create),
   ],
-   list: [ asyncErrorBoundary(list)],
+   list: [asyncErrorBoundary(list)],
   update: [
     asyncErrorBoundary(reservationExists),
     hasData,

@@ -1,19 +1,12 @@
 const knex = require("../db/connection")
 
-// function list(date) {
-//   return knex("reservations")
-//     .select("*")
-//     .where({reservation_date: date})
-//     .andWhereNot({status: "finished"})
-//     .orderBy("reservation_time");
-// }
+function list(date) {
 
-function list() {
-return knex('reservations')
-.select('*')
-.whereNot({ status: "finished"})
-.andWhereNot({ status: "cancelled"})
-.orderBy('reservation_time');
+  return knex("reservations")
+    .select("*")
+    .where({reservation_date: date})
+    .andWhereNot({status: "finished"})
+    .orderBy("reservation_time");
 }
 
 function search(mobile_number) {
@@ -47,12 +40,6 @@ function update(updatedReservation) {
       .update(updatedReservation, "*")
       .then(updatedRecords=>updatedRecords[0]);
   }
-
-// function updateStatus(updatedReservation) {
-//     return knex("reservations")
-//       .where({ reservation_id: updatedReservation.reservation_id })
-//       .update({status:status}, "*");
-//   }
 
 module.exports = {
    search,
