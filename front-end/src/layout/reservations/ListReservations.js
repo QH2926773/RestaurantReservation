@@ -3,12 +3,8 @@ import { Link } from "react-router-dom";
 import { statusChange } from "../../utils/api";
 
 function ListReservations({ data, show = false, load, setError }) {
-  // show is set to default value which is used to hyde the reservations
-  // with a status of "finished", primarily used for the dashboard list.
-  //
 
-  //load is whatever state the needs to be refreshed when cancle is submitted.
-  function cancelReservation({reservationID}) {
+  function cancelReservation(reservationID) {
     const abortController = new AbortController();
 
     if (window.confirm("Do you want to cancel this reservation?")) {

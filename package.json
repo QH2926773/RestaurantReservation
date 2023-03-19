@@ -50,7 +50,8 @@
   "license": "UNLICENSED",
   "dependencies": {
     "knex": "^2.4.2",
-    "moment": "^2.29.4"
+    "moment": "^2.29.4",
+    "react-icons": "^4.8.0"
   },
   "devDependencies": {
     "@iconify/react": "^4.1.0"

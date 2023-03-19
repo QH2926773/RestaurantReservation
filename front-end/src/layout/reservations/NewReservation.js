@@ -35,9 +35,9 @@ function NewReservation() {
   return (
     <div className="new-reservation">
       {reservationForm.reservation_date < today() && (
-        <ErrorAlert error={{ error }} />
+       <ErrorAlert error={error} />
       )}
-      
+      <ErrorAlert error={error} />
       <h4>New Reservation</h4>
       <form onSubmit={submitHandler} className="reservation-form">
         <div className="form-group">

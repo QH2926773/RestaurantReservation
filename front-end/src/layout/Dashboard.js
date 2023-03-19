@@ -94,6 +94,8 @@ function Dashboard({ date }) {
       </React.Fragment>
     );
   }
+  // PON stands for previous or next
+  // second param takes in date to parse to link
   function clickHandler(PON, d) {
     if (PON === "prev") {
       history.push(`/dashboard?date=${d}`);
@@ -123,4 +125,5 @@ function Dashboard({ date }) {
     </main>
   );
 }
+//{JSON.stringify(reservations)}
 export default Dashboard;
