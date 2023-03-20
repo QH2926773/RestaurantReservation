@@ -1,17 +1,21 @@
-const knex = require("../db/connection")
+const knex = require("../db/connection");
 
-function list(date) {
+const tableName = "reservations";
 
-  return knex("reservations")
-    .select("*")
-    .where({reservation_date: date})
-    .andWhereNot({status: "finished"})
-    .orderBy("reservation_time");
+function list() {
+  return knex(tableName).select("*").orderBy("reservation_time", "asc");
 }
 
-function search(mobile_number) {
-  return knex("reservations")
+function listOnDate(reservation_date) {
+  return knex(tableName)
     .select("*")
+    .where({ reservation_date })
+    .whereNotIn("status", ["finished", "cancelled"])
+    .orderBy("reservation_time", "asc");
+}
+
+function listForNumber(mobile_number) {
+  return knex(tableName)
     .whereRaw(
       "translate(mobile_number, '() -', '') like ?",
       `%${mobile_number.replace(/\D/g, "")}%`
@@ -19,33 +23,33 @@ function search(mobile_number) {
     .orderBy("reservation_date");
 }
 
-function read(reservationId){
-    return knex("reservations")
-    .select("*")
-    .where({"reservation_id":reservationId})
-    .first()
-}
-
-function create(newReservation){
-    return knex("reservations")
-    .insert(newReservation)
+function create(reservation) {
+  return knex(tableName)
+    .insert(reservation)
     .returning("*")
-    .then((result)=>result[0])
+    .then((createdRecords) => createdRecords[0]);
 }
 
-function update(updatedReservation) {
-    return knex("reservations")
-      .select("*")
-      .where({ "reservation_id": updatedReservation.reservation_id })
-      .update(updatedReservation, "*")
-      .then(updatedRecords=>updatedRecords[0]);
-  }
+function read(reservation_id) {
+  return knex(tableName)
+    .select("*")
+    .where({ reservation_id: reservation_id })
+    .first();
+}
+
+function update(reservation) {
+  return knex(tableName)
+    .select("*")
+    .where({ reservation_id: reservation.reservation_id })
+    .update(reservation)
+    .then(() => read(reservation.reservation_id));
+}
 
 module.exports = {
-   search,
-    read,
-    create,
-    list,
-    update,
-  };
-  
+  create,
+  list,
+  listOnDate,
+  listForNumber,
+  read,
+  update,
+};
