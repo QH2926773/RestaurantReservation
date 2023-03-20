@@ -18,19 +18,32 @@ function NewReservation() {
   const [error, setError] = useState("");
   const history = useHistory();
 
-  const submitHandler = (event) => {
+  // const submitHandler = (event) => {
+  //   event.preventDefault();
+  //   const abortController = new AbortController();
+  //   createReservation({ data: reservationForm }, abortController.signal)
+  //     .then((value) =>
+  //       history.push(`/dashboard?date=${reservationForm.reservation_date}`)
+  //     )
+  //     .catch(setError);
+  // };
+  async function submitHandler(event) {
     event.preventDefault();
     const abortController = new AbortController();
-    createReservation({ data: reservationForm }, abortController.signal)
-      .then((value) =>
-        history.push(`/dashboard?date=${reservationForm.reservation_date}`)
-      )
-      .catch(setError);
-  };
-
-  if (error) {
-    console.log(error);
+    try {
+        const response = await createReservation(reservationForm, abortController.signal)
+            history.push(`/dashboard?date=${reservationForm.reservation_date}`)
+            return response
+      }
+     catch (err) {
+      setError(err);
+    }
+    return () => abortController.abort();
   }
+
+  // if (error) {
+  //   console.log(error);
+  // }
 
   return (
     <div className="new-reservation">

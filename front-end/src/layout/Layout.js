@@ -1,5 +1,5 @@
 import React from "react";
-import NavBar from "./navigation/NavBar";
+import Menu from "./Menu";
 import Routes from "./Routes";
 
 import "./Layout.css";
@@ -11,18 +11,14 @@ import "./Layout.css";
  *
  * @returns {JSX.Element}
  */
-
 function Layout() {
   return (
-    <div className="container-fluid background">
-      <title>
-        <h1>periodic tables</h1>
-      </title>
+    <div className="container-fluid">
       <div className="row h-100">
-        <div className="bar">
-          <NavBar />
+        <div className="col-md-2 side-bar">
+          <Menu />
         </div>
-        <div className="routes">
+        <div className="col">
           <Routes />
         </div>
       </div>
